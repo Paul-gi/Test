@@ -1,5 +1,6 @@
 package com.example.andy.myapplication;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import android.view.LayoutInflater;
@@ -7,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -21,15 +23,30 @@ public class OneFragment extends Fragment {
         Button change_tab = v.findViewById(R.id.btn_changetab);
         change_tab.setOnClickListener(new View.OnClickListener() {
 
+            @RequiresApi (api = Build.VERSION_CODES.N)
             @Override
             public void onClick(View v) {
-//               // TwoFragment twoFragment = new TwoFragment();
+
+                /**
+                 * 法1
+                 *
+                 * */
+//                TwoFragment twoFragment = new TwoFragment();
 //                FragmentManager fragmentManager = getFragmentManager();
 //                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                fragmentTransaction.replace(R.id.btn_changetab, twoFragment);
+//                fragmentTransaction.replace(R.id.layout_container, twoFragment);
 //                fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
 //                fragmentTransaction.addToBackStack(null);
 //                fragmentTransaction.commit();
+
+                /**
+                 * 法2
+                 * 這邊是簡單寫法 之後有學abstract 或其他觀察者模式可以把這面這幾行改到別的位置
+                 * */
+                MainActivity mainActivity = (MainActivity)getActivity();
+                mainActivity.selectPage(1);
+
+
 
             }
         });

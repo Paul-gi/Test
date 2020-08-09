@@ -18,16 +18,17 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
-
-@RequiresApi(api = Build.VERSION_CODES.N)
+@RequiresApi (api = Build.VERSION_CODES.N)
 public class MainActivity extends AppCompatActivity {
+
     private ViewPager viewPager;
     private Toolbar toolbar;
     private TabLayout tabLayout;
     TwoFragment twoFragment = new TwoFragment();
-    @TargetApi(Build.VERSION_CODES.O)
+
+    @TargetApi (Build.VERSION_CODES.O)
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate (Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,36 +47,42 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    public void selectPage (int pageIndex) {
+        tabLayout.setScrollPosition(pageIndex, 0f, true);
+        viewPager.setCurrentItem(pageIndex);
     }
 
-    class ViewPagerAdapter extends FragmentPagerAdapter {
-        private final List<Fragment> mList = new ArrayList<>();
-        private final List<String> mTitleList = new ArrayList<>();
+}
 
-        public ViewPagerAdapter(FragmentManager supportFragmentManager) {
-            super(supportFragmentManager);
-        }
+class ViewPagerAdapter extends FragmentPagerAdapter {
 
-        @Override
-        public Fragment getItem(int i) {
-            return mList.get(i);
-        }
+    private final List<Fragment> mList = new ArrayList<>();
+    private final List<String> mTitleList = new ArrayList<>();
 
-        @Override
-        public int getCount() {
-            return mList.size();
-        }
-
-        public void addFragment(Fragment fragment, String title) {
-            mList.add(fragment);
-            mTitleList.add(title);
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            return mTitleList.get(position);
-        }
+    public ViewPagerAdapter (FragmentManager supportFragmentManager) {
+        super(supportFragmentManager);
     }
+
+    @Override
+    public Fragment getItem (int i) {
+        return mList.get(i);
+    }
+
+    @Override
+    public int getCount () {
+        return mList.size();
+    }
+
+    public void addFragment (Fragment fragment, String title) {
+        mList.add(fragment);
+        mTitleList.add(title);
+    }
+
+    @Override
+    public CharSequence getPageTitle (int position) {
+        return mTitleList.get(position);
+    }
+}
 
 
 
